@@ -1,5 +1,6 @@
 # Source files
 SRC		=	src/main.c \
+			src/dda_raycast.c \
 			#src/texture.c
 
 # Object files definition
@@ -26,7 +27,9 @@ INCLUDE 		= -I./include/ \
 CC				= cc
 RM				= rm -f
 CFLAGS			= -Wall -Werror -Wextra -g
-GLFW			= -lglfw
+#GLFW			= -lglfw
+GLFW			=-L/opt/homebrew/lib -lglfw
+
 
 # Color variables for printing
 MG				= \033[0;95m # Magenta
