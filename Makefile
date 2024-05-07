@@ -1,15 +1,15 @@
 # Source files
 SRC		=	src/main.c \
-			src/dda_raycast.c \
+			src/dda_raycast.c
 			#src/texture.c
 
 # Object files definition
 OBJS = $(SRC:.c=.o)
 
 # Directories for libraries
-GNL_DIR			= lib/gnl/
-LIBFT_DIR		= lib/libft/
-MLX_DIR			= lib/MLX42/build
+GNL_DIR			= libs/gnl/
+LIBFT_DIR		= libs/libft/
+MLX_DIR			= libs/MLX42/build
 
 # Library files
 LIB 			= $(LIBFT) $(GNL)
@@ -19,16 +19,16 @@ MLX_LIB			= $(MLX_DIR)/libmlx42.a
 
 # Includes
 INCLUDE 		= -I./include/ \
-				 -I./lib/libft/ \
-				 -I./lib/gnl/ \
-				 -I./lib/MLX42/include/MLX42/
+				 -I./libs/ft/ \
+				 -I./libs/gnl/ \
+				 -I./libs/MLX42/include/MLX42/
 
 # Compiler and delete commands
 CC				= cc
 RM				= rm -f
 CFLAGS			= -Wall -Werror -Wextra -g
-#GLFW			= -lglfw
-GLFW			=-L/opt/homebrew/lib -lglfw
+GLFW			= -lglfw
+#GLFW			=-L/opt/homebrew/lib -lglfw
 
 
 # Color variables for printing
@@ -59,31 +59,31 @@ $(NAME): $(LIB) $(MLX_LIB) $(OBJS)
 $(MLX_LIB):
 	echo "Compiling mlx42..."
 	cd lib/MLX42 && cmake -B build
-	cmake --build ./lib/MLX42/build -j4
+	cmake --build ./libs/MLX42/build -j4
 	echo "mlx42 compiled"
 
 # Compiling the libraries
 $(LIB):
 	echo "Compiling libraries..."
-	$(MAKE) -C ./lib/
+	$(MAKE) -C ./libs/
 
 # Cleaning up object files
 clean:
 	$(RM) $(OBJS)
 	echo "$(MG)Object files cleaned$(RST)"
-	$(MAKE) clean -C ./lib/
+	$(MAKE) clean -C ./libs/
 	echo "$(R)Lib object files removed..."
 
 # Cleaning up all compiled outputs
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) fclean -C ./lib/
+	$(MAKE) fclean -C ./libs/
 	echo "$(MG)cub3d program was deleted$(RST)"
 
 # Cleaning up the MLX42 library
 clean_mlx:
 	echo "Removing MLX42 library..."
-	rm -rfd ./lib/MLX42/build/
+	rm -rfd ./libs/MLX42/build/
 
 # Rebuilding everything
 re: fclean all
